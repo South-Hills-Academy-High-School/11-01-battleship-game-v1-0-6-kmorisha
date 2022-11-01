@@ -90,7 +90,10 @@ function isPlayerXWinner (enemyBoats: Sprite[][], hitOrMissPX: Sprite[]) {
     return killCount
 }
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (moveBoatFlag == 3) {
+    let list: number[] = []
+    if (isAttackingTwise(list)) {
+    	
+    } else if (moveBoatFlag == 3) {
         if (currentPlayer == "Player1") {
             isHitOrMiss(boatSpriteArrayP2, hitOrMissP1)
             switchPlayer()
@@ -246,6 +249,14 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     grid.move(cursor, 0, 1)
     grid.place(shadowCursor, tiles.getTileLocation(grid.spriteCol(cursor), grid.spriteRow(cursor) + -1))
 })
+function isAttackingTwise (boomSpriteArrayPX: Sprite[]) {
+    for (let currentBoomSprite of boomSpriteArrayPX) {
+        if (grid.spriteCol(currentBoomSprite) == grid.spriteCol(cursor) && grid.spriteRow(currentBoomSprite) == grid.spriteRow(cursor)) {
+            return 1
+        }
+    }
+    return 0
+}
 function initP1 () {
     boatRotateArrayP1 = ["up", "up", "up"]
     boatSpriteArrayP1 = [[sprites.create(img`
